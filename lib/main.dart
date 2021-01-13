@@ -36,14 +36,43 @@ class _ExamplePageState extends State<ExamplePage> {
         tempList.add(response.data['results'][i]);
       }
 
-      
+      setState(() {
+        data = tempList;
+        filteredData = data;
+      });
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      
-    );
+    return AppBar(
+        leading: IconButton(
+          icon: _iconSearch,
+          onPressed: _searchPressed(),
+        ),
+        title: _appBarTitle,
+        centerTitle: true,
+      );
+    
+  }
+
+  void _searchPressed() {
+    setState(() {
+      if (this._iconSearch.icon == Icons.search) {
+        this._iconSearch = Icon(Icons.close);
+        this._appBarTitle = new TextField(
+          controller: _filter,
+          decoration: InputDecoration(
+            prefixIcon: Icon(Icons.search),
+            hintText: 'Search...',
+          ),
+        );
+      } else {
+        this._iconSearch = Icon(Icons.search);
+        this._appBarTitle = Text('Search data');
+        filteredData = data;
+        _filter.clear();
+      }
+    });
   }
 }
