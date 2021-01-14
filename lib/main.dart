@@ -92,11 +92,12 @@ class _ExamplePageState extends State<ExamplePage> {
 
   void _getData() async {
     final response = await dio.get('https://swapi.dev/api/people');
-    if (response != null) {
-      print("data OK");
-    } else {
-      print ("can't get data"); 
-    }
+    // if (response.statusCode == 200) {
+    //   print("data OK");
+    // } else {
+    //   print ("can't get data"); 
+    // }
+    //print('WArning');
     List tempList = List();
     for (int i = 0; i < response.data['results'].length; i++) {
       tempList.add(response.data['results'][i]);
@@ -131,8 +132,8 @@ class _ExamplePageState extends State<ExamplePage> {
   }
 
   Widget _buildList() {
-    if ((_searchtext.isNotEmpty)) {
-      List tempList = List();
+    if (!(_searchtext.isEmpty)) {
+      List tempList = new List();
       for (int i = 0; i < filteredData.length; i++) {
         //mengecek apakah search text sama dengan filtered data
         if(filteredData[i]['name'].toLowerCase().contains(_searchtext.toLowerCase())) {
@@ -146,7 +147,7 @@ class _ExamplePageState extends State<ExamplePage> {
       itemCount: data_list == null ? 0 : filteredData.length,
       itemBuilder: (BuildContext context, int index) {
         return new ListTile(
-          title: Text(filteredData[index]['data']),
+          title: Text(filteredData[index]['name']),
           onTap: () => print(filteredData[index]['name']),
         );
       },
