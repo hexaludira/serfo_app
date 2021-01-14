@@ -136,7 +136,7 @@ class _ExamplePageState extends State<ExamplePage> {
       List tempList = new List();
       for (int i = 0; i < filteredData.length; i++) {
         //mengecek apakah search text sama dengan filtered data
-        if(filteredData[i]['name'].toLowerCase().contains(_searchtext.toLowerCase())) {
+        if(filteredData[i]['name']..contains(_searchtext.toLowerCase())) {
           tempList.add(filteredData[i]);
         }
       }
